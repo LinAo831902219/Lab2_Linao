@@ -5,31 +5,14 @@ import java.util.Scanner;
 public class lab2 {
 	public static void main(String args[]) throws IOException {
 		Scanner sc = new Scanner(System.in);
-		System.out.print("input FilePath:");
+		System.out.print("input FilePath: ");
 		String FilePath = sc.nextLine();
-		System.out.print("input level:");
+		System.out.print("input level: ");
 		int level = sc.nextInt();
-		if(level == 1) {
-			level1(FilePath);
-		}
-		else if(level == 2) {
-			level1(FilePath);
-			level2(FilePath);
-		}
-		else if(level == 3) {
-			level1(FilePath);
-			level2(FilePath);
-			level3(FilePath);
-		}
-		else if(level == 4) {
-			level1(FilePath);
-			level2(FilePath);
-			level3(FilePath);
-			level4(FilePath);
-		}
-		else {}
+		String s = perform(FilePath, level);
+		System.out.print(s);
 	}
-	public static void level1(String FilePath) throws IOException {
+	public static String level1(String FilePath) throws IOException {
 		/*
 		 * keywords
 		 */
@@ -48,12 +31,13 @@ public class lab2 {
 				keywordNum--;
 			}
 		}
-		System.out.println("total num: "+keywordNum);
+		return "total num: "+keywordNum+"\n";
 	}
-	public static void level2(String FilePath) throws IOException {
+	public static String level2(String FilePath) throws IOException {
 		/*
 		 * switch case 
 		 */
+		String s = "";
 		BufferedReader textCode2 = new BufferedReader(new FileReader(FilePath));
 		int switchNum = 0;
 		String fileLine;
@@ -62,7 +46,7 @@ public class lab2 {
 				switchNum++;
 			}
 		}
-		System.out.println("switch num: "+switchNum);
+		s += "switch num: "+switchNum+"\n";
 		int caseNum[]=new int[switchNum];
 		int time = -1; //use to count switch
 		BufferedReader textCode = new BufferedReader(new FileReader(FilePath));
@@ -74,13 +58,13 @@ public class lab2 {
 				caseNum[time]++;
 			}
 		}
-		System.out.print("case num:");
+		s += "case num:";
 		for(int i = 0;i<switchNum;i++) {
-			System.out.print(" "+caseNum[i]);
+			s += " "+caseNum[i];
 		}
-		System.out.println();
+		return s+"\n";
 	}
-	public static void level3(String FilePath) throws IOException {
+	public static String level3(String FilePath) throws IOException {
 		/*
 		 * if-else: 
 		 */
@@ -102,9 +86,9 @@ public class lab2 {
 			}else {}
 		}
 		if_elseNum = ifTime-else_if_time;
-		System.out.println("if-else num: " + if_elseNum);
+		return "if-else num: " + if_elseNum+"\n";
 	}
-	public static void level4(String FilePath) throws IOException {
+	public static String level4(String FilePath) throws IOException {
 		/*
 		 * if-else if -else: 
 		 */
@@ -126,8 +110,29 @@ public class lab2 {
 			}else {}
 		}
 		if_elseNum = ifTime-else_if_time;
-		System.out.println("if-else num: " + if_elseNum);
 		int if_else_ifNum = else_if_time;//discontinuous else if's count
-		System.out.print("if-elseif-else num: "+if_else_ifNum);
+		return "if-elseif-else num: "+if_else_ifNum+"\n";
 		}
+	public static String perform(String FilePath, int level) throws IOException {
+		String s = "";
+		if(level == 1) {
+			s+=level1(FilePath);
+		}
+		else if(level == 2) {
+			s+=level1(FilePath);
+			s+=level2(FilePath);
+		}
+		else if(level == 3) {
+			s+=level1(FilePath);
+			s+=level2(FilePath);
+			s+=level3(FilePath);
+		}
+		else if(level == 4) {
+			s+=level1(FilePath);
+			s+=level2(FilePath);
+			s+=level3(FilePath);
+			s+=level4(FilePath);
+		}
+		return s;
+	}
 }
